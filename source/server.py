@@ -40,7 +40,7 @@ def serverBt():
     except IOError:
         pass
 
-    print("disconnected")
+    print("Disconnected\n\n")
 
     client_sock.close()
     server_sock.close()

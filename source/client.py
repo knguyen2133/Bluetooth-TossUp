@@ -15,7 +15,7 @@ def clientBt(addr):
     service_matches = find_service( uuid = uuid, address = addr )
 
     if len(service_matches) == 0:
-        print("couldn't find the service")
+        print("Couldn't find the service")
         return
 
     first_match = service_matches[0]
@@ -39,6 +39,6 @@ def clientBt(addr):
     except IOError:
         pass
 
-    print("Disconnected")
+    print("Disconnected\n\n")
 
     sock.close()
