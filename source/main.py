@@ -17,7 +17,9 @@ def randomGenerator():
 
 def main():
     print("Hello")
-    addr = scan.selectDevice()
+    addr = False
+    while addr == False:
+        addr = scan.selectDevice()
     while True:
         if addr != False:
             res = randomGenerator()
