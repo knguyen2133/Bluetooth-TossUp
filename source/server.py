@@ -28,7 +28,7 @@ def serverBt():
 
     print("Waiting for connection on RFCOMM channel %d" % port)
 
-    #socket.setdefaulttimeout(10);
+    socket.setdefaulttimeout(15);
     client_sock, client_info = server_sock.accept()
     print("Accepted connection from ", client_info)
 
