@@ -6,10 +6,36 @@
 # $Id: rfcomm-client.py 424 2006-08-24 03:35:54Z albert $
 
 from bluetooth import *
-import sys
+import sys, time, thread
+
+def clientTx(sock):
+    try:
+        while True:
+            sendData = raw_input()
+            if len(sendData) == 0: break
+            sock.send(sendData)
+
+            time.sleep(1)
+
+    except IOError:
+        pass
+
+def clientRx(sock):
+    try:
+        while True:
+
+            data = sock.recv(1024)
+            if len(data) == 0: break
+            print("Server: %s" % data)
+
+            time.sleep(1)
+
+    except IOError:
+        pass
+
 
 def clientBt(addr):
-    print("Hi Client")
+    print("You are Client")
 
     uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
     service_matches = find_service( uuid = uuid, address = addr )
@@ -30,18 +56,12 @@ def clientBt(addr):
     sock.connect((host, port))
 
     print("Connected")
+
     try:
-        while True:
-            # sendData = raw_input()
-            # if len(sendData) == 0: break
-            # sock.send(sendData)
-
-            data = sock.recv(1024)
-            if len(data) == 0: break
-            print("Server: %s" % data)
-
-    except IOError:
-        pass
+        thread.start_new_thread( clientTx, (sock))
+        thread.start_new_thread( clientRx, (sock))
+    except:
+        print("Unable to start Client Thread")
 
     print("Disconnected\n\n")
 

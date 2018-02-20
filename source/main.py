@@ -20,11 +20,12 @@ def main():
     addr = False
     while addr == False:
         addr = scan.selectDevice()
+
     while True:
         if addr != False:
             res = randomGenerator()
             tossUp(addr, res)
-        else:
-            continue
+
+        time.sleep(1)
 
 main()
