@@ -16,8 +16,8 @@ def clientTxThread(sock):
             sock.send(sendData)
 
             time.sleep(.1)
-
     except IOError:
+        print("Tx Failed")
         pass
 
 def clientRxThread(sock):
@@ -31,6 +31,7 @@ def clientRxThread(sock):
             time.sleep(.1)
 
     except IOError:
+        print("Rx Failed")
         pass
 
 def clientBt(addr):
@@ -57,8 +58,8 @@ def clientBt(addr):
     print("Connected")
 
     try:
-        clientTx = threading.Thread(target = ClientThreadTx, args=(sock,))
-        clientRx = threading.Thread(target = ClientThreadRx, args=(sock,))
+        clientTx = threading.Thread(target = clientTxThread, args=(sock,))
+        clientRx = threading.Thread(target = clientRxThread, args=(sock,))
         clientTx.start()
         clientRx.start()
     except:

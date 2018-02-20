@@ -8,7 +8,7 @@ from bluetooth import *
 
 import socket, time, threading
 
-def cerverTxThread(client_sock):
+def serverTxThread(client_sock):
     try:
         while True:
             sendData = raw_input()
@@ -17,9 +17,10 @@ def cerverTxThread(client_sock):
 
             time.sleep(.1)
     except IOError:
+        print("Tx Failed")
         pass
 
-def cerverRxThread(client_sock):
+def serverRxThread(client_sock):
     try:
         while True:
             data = client_sock.recv(1024)
@@ -28,9 +29,8 @@ def cerverRxThread(client_sock):
 
             time.sleep(.1)
     except IOError:
+        print("Rx Failed")
         pass
-
-
 
 def serverBt():
     print("You are Server")
@@ -57,8 +57,8 @@ def serverBt():
     print("Accepted connection from ", client_info)
 
     try:
-        serverTx = threading.Thread(target = ServerThreadTx, args=(client_sock,))
-        serverRx = threading.Thread(target = ServerThreadRx, args=(client_sock,))
+        serverTx = threading.Thread(target = serverTxThread, args=(client_sock,))
+        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
         serverTx.start()
         serverRx.start()
 
