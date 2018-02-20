@@ -34,9 +34,13 @@ def serverBt():
 
     try:
         while True:
-            data = client_sock.recv(1024)
-            if len(data) == 0: break
-            print("received [%s]" % data)
+            # data = client_sock.recv(1024)
+            # if len(data) == 0: break
+            # print("Client: %s" % data)
+
+            sendData = raw_input()
+            if len(sendData) == 0: break
+            client_sock.send(sendData)
     except IOError:
         pass
 

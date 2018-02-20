@@ -32,9 +32,13 @@ def clientBt(addr):
     print("Connected")
     try:
         while True:
-            sendData = raw_input()
-            if len(sendData) == 0: break
-            sock.send(sendData)
+            # sendData = raw_input()
+            # if len(sendData) == 0: break
+            # sock.send(sendData)
+
+            data = sock.recv(1024)
+            if len(data) == 0: break
+            print("Server: %s" % data)
 
     except IOError:
         pass
