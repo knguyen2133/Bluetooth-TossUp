@@ -10,6 +10,7 @@ import sys, time, threading
 
 def clientTxThread(sock):
     try:
+        print("hi")
         while True:
             sendData = raw_input()
             if len(sendData) == 0: break
@@ -64,6 +65,7 @@ def clientBt(addr):
         clientRx.start()
     except:
         print("Unable to start Client Thread")
+    while True:
 
     print("Disconnected\n\n")
 

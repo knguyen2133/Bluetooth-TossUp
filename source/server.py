@@ -10,6 +10,7 @@ import socket, time, threading
 
 def serverTxThread(client_sock):
     try:
+        print("hi")
         while True:
             sendData = raw_input()
             if len(sendData) == 0: break
@@ -64,6 +65,8 @@ def serverBt():
 
     except:
         print("Unable to start Server Thread")
+
+    while True:
 
     print("Disconnected\n\n")
 
