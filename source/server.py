@@ -67,6 +67,8 @@ def serverBt():
         print("Unable to start Server Thread")
 
     while True:
+        if(False):
+            print("1");
 
     print("Disconnected\n\n")
 

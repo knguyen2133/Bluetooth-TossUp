@@ -66,6 +66,8 @@ def clientBt(addr):
     except:
         print("Unable to start Client Thread")
     while True:
+        if(False):
+            print("1");
 
     print("Disconnected\n\n")
 
