@@ -57,8 +57,8 @@ def clientBt(addr):
     print("Connected")
 
     try:
-        clientTx = threading.Thread(target = "ClientThreadTx", args=(sock,))
-        clientRx = threading.Thread(target = "ClientThreadRx", args=(sock,))
+        clientTx = threading.Thread(target = ClientThreadTx, args=(sock,))
+        clientRx = threading.Thread(target = ClientThreadRx, args=(sock,))
         clientTx.start()
         clientRx.start()
     except:

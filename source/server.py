@@ -57,8 +57,8 @@ def serverBt():
     print("Accepted connection from ", client_info)
 
     try:
-        serverTx = threading.Thread(target = "ServerThreadTx",args=(client_sock,))
-        serverRx = threading.Thread(target = "ServerThreadRx",args=(client_sock,))
+        serverTx = threading.Thread(target = ServerThreadTx, args=(client_sock,))
+        serverRx = threading.Thread(target = ServerThreadRx, args=(client_sock,))
         serverTx.start()
         serverRx.start()
 
