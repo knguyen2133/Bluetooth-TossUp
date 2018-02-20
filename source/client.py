@@ -6,21 +6,21 @@
 # $Id: rfcomm-client.py 424 2006-08-24 03:35:54Z albert $
 
 from bluetooth import *
-import sys, time, thread
+import sys, time, threading
 
-def clientTx(sock):
+def clientTxThread(sock):
     try:
         while True:
             sendData = raw_input()
             if len(sendData) == 0: break
             sock.send(sendData)
 
-            time.sleep(1)
+            time.sleep(.1)
 
     except IOError:
         pass
 
-def clientRx(sock):
+def clientRxThread(sock):
     try:
         while True:
 
@@ -28,11 +28,10 @@ def clientRx(sock):
             if len(data) == 0: break
             print("Server: %s" % data)
 
-            time.sleep(1)
+            time.sleep(.1)
 
     except IOError:
         pass
-
 
 def clientBt(addr):
     print("You are Client")
@@ -58,8 +57,10 @@ def clientBt(addr):
     print("Connected")
 
     try:
-        thread.start_new_thread( clientTx, (sock))
-        thread.start_new_thread( clientRx, (sock))
+        clientTx = threading.Thread(target = "ClientThreadTx", args=(sock,))
+        clientRx = threading.Thread(target = "ClientThreadRx", args=(sock,))
+        clientTx.start()
+        clientRx.start()
     except:
         print("Unable to start Client Thread")
 

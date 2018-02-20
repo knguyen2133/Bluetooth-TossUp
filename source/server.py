@@ -6,27 +6,27 @@
 
 from bluetooth import *
 
-import socket, time, thread
+import socket, time, threading
 
-def serverTx(client_sock):
+def cerverTxThread(client_sock):
     try:
         while True:
             sendData = raw_input()
             if len(sendData) == 0: break
             client_sock.send(sendData)
 
-            time.sleep(1)
+            time.sleep(.1)
     except IOError:
         pass
 
-def serverRx(client_sock):
+def cerverRxThread(client_sock):
     try:
         while True:
             data = client_sock.recv(1024)
             if len(data) == 0: break
             print("Client: %s" % data)
 
-            time.sleep(1)
+            time.sleep(.1)
     except IOError:
         pass
 
@@ -37,7 +37,7 @@ def serverBt():
 
     server_sock=BluetoothSocket( RFCOMM )
     server_sock.bind(("",PORT_ANY))
-    server_sock.listen(1)
+    server_sock.listen(.01)
 
     port = server_sock.getsockname()[1]
 
@@ -57,10 +57,13 @@ def serverBt():
     print("Accepted connection from ", client_info)
 
     try:
-        thread.start_new_thread( serverTx, (client_sock))
-        thread.start_new_thread( serverRx, (client_sock))
+        serverTx = threading.Thread(target = "ServerThreadTx",args=(client_sock,))
+        serverRx = threading.Thread(target = "ServerThreadRx",args=(client_sock,))
+        serverTx.start()
+        serverRx.start()
+
     except:
-        print("Unable to start Client Thread")
+        print("Unable to start Server Thread")
 
     print("Disconnected\n\n")
 
