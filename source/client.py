@@ -10,7 +10,6 @@ import sys, time, threading
 
 def clientTxThread(sock):
     try:
-        print("hi")
         while True:
             sendData = raw_input()
             if len(sendData) == 0: break
@@ -24,13 +23,11 @@ def clientTxThread(sock):
 def clientRxThread(sock):
     try:
         while True:
-
             data = sock.recv(1024)
             if len(data) == 0: break
             print("Server: %s" % data)
 
             time.sleep(1)
-
     except IOError:
         print("Rx Failed")
         pass

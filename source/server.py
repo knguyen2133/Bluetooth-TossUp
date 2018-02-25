@@ -10,7 +10,6 @@ import socket, time, threading
 
 def serverTxThread(client_sock):
     try:
-        print("hi")
         while True:
             sendData = raw_input()
             if len(sendData) == 0: break
