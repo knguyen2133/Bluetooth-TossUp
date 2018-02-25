@@ -6,14 +6,38 @@
 
 from bluetooth import *
 
-import socket
+import time, threading
+
+def serverTxThread(client_sock):
+    try:
+        while True:
+            sendData = raw_input()
+            if len(sendData) == 0: break
+            client_sock.send(sendData)
+
+            time.sleep(1)
+    except IOError:
+        print("Tx Failed")
+        pass
+
+def serverRxThread(client_sock):
+    try:
+        while True:
+            data = client_sock.recv(1024)
+            if len(data) == 0: break
+            print("Client: %s" % data)
+
+            time.sleep(1)
+    except IOError:
+        print("Rx Failed")
+        pass
 
 def serverBt():
-    print("Hi Server")
+    print("You are Server")
 
     server_sock=BluetoothSocket( RFCOMM )
     server_sock.bind(("",PORT_ANY))
-    server_sock.listen(1)
+    server_sock.listen(.01)
 
     port = server_sock.getsockname()[1]
 
@@ -28,17 +52,22 @@ def serverBt():
 
     print("Waiting for connection on RFCOMM channel %d" % port)
 
-    socket.setdefaulttimeout(10);
+    server_sock.settimeout(7);
     client_sock, client_info = server_sock.accept()
     print("Accepted connection from ", client_info)
 
     try:
-        while True:
-            data = client_sock.recv(1024)
-            if len(data) == 0: break
-            print("received [%s]" % data)
-    except IOError:
-        pass
+        serverTx = threading.Thread(target = serverTxThread, args=(client_sock,))
+        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
+        serverTx.start()
+        serverRx.start()
+
+    except:
+        print("Unable to start Server Thread")
+
+    while True:
+        if(False):
+            print("1");
 
     print("Disconnected\n\n")
 
