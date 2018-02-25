@@ -16,7 +16,7 @@ def serverTxThread(client_sock):
             if len(sendData) == 0: break
             client_sock.send(sendData)
 
-            time.sleep(.1)
+            time.sleep(1)
     except IOError:
         print("Tx Failed")
         pass
@@ -28,7 +28,7 @@ def serverRxThread(client_sock):
             if len(data) == 0: break
             print("Client: %s" % data)
 
-            time.sleep(.1)
+            time.sleep(1)
     except IOError:
         print("Rx Failed")
         pass
