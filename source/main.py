@@ -1,4 +1,6 @@
 #Based of off pybluez example rfcomm
+from bluetooth import *
+
 import random, time
 
 import server
@@ -22,10 +24,14 @@ def main():
         addr = scan.selectDevice()
 
     while True:
-        if addr != False:
-            res = randomGenerator()
-            tossUp(addr, res)
+        try:
+            if addr != False:
+                res = randomGenerator()
+                tossUp(addr, res)
 
-        time.sleep(1)
+            time.sleep(1)
+        except BluetoothError:
+            pass
+
 
 main()
