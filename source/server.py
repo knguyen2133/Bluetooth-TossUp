@@ -25,7 +25,7 @@ def serverRxThread(client_sock):
         while True:
             data = client_sock.recv(1024)
             if len(data) == 0: break
-            print("Client: %s" % data)
+            print("\nClient: %s" % data)
 
             time.sleep(1)
     except IOError:
