@@ -12,9 +12,9 @@ def serverTxThread(client_sock):
     try:
         while True:
             sendData = raw_input()
-            if len(sendData) == 0: break
             client_sock.send(sendData)
-
+            if data == "```":
+                break
             time.sleep(1)
     except IOError:
         print("Tx Failed")
@@ -24,7 +24,8 @@ def serverRxThread(client_sock):
     try:
         while True:
             data = client_sock.recv(1024)
-            if len(data) == 0: break
+            if data == "```":
+                break
             print("\nClient: %s" % data)
 
             time.sleep(1)
