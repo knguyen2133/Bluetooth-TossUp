@@ -10,9 +10,13 @@ The functionality of this program is to have two bluetooth devices connect with 
 
 
 DEPENDENCIES:
+
 -Updated Python Essentials
-  -disutils
-  -pybluez
+-disutils
+-python-pip
+-pip install pybluez
+-pybluez
+-bluetooth libbluetooth-dev
 -Updated BlueTooth drivers
 
 STARTUP:
