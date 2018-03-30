@@ -13,11 +13,11 @@ def serverTxThread(client_sock):
         while True:
             sendData = raw_input()
             client_sock.send(sendData)
-            if data == "```":
+            if sendData == "```":
                 break
             time.sleep(1)
-    except IOError:
-        print("Tx Failed")
+    except (IOError, KeyboardInterrupt) as e:
+        print("Tx Close")
         pass
 
 def serverRxThread(client_sock):
@@ -29,8 +29,8 @@ def serverRxThread(client_sock):
             print("\nClient: %s" % data)
 
             time.sleep(1)
-    except IOError:
-        print("Rx Failed")
+    except (IOError, KeyboardInterrupt) as e:
+        print("Rx Close")
         pass
 
 def serverBt():

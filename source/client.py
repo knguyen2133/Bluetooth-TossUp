@@ -16,8 +16,8 @@ def clientTxThread(sock):
             sock.send(sendData)
 
             time.sleep(1)
-    except IOError:
-        print("Tx Failed")
+    except (IOError, KeyboardInterrupt) as e:
+        print("Tx Close")
         pass
 
 def clientRxThread(sock):
@@ -28,8 +28,8 @@ def clientRxThread(sock):
             print("\nServer: %s" % data)
 
             time.sleep(1)
-    except IOError:
-        print("Rx Failed")
+    except (IOError, KeyboardInterrupt) as e:
+        print("Rx Close")
         pass
 
 def clientBt(addr):
@@ -40,7 +40,7 @@ def clientBt(addr):
 
     if len(service_matches) == 0:
         print("Couldn't find the service")
-        return
+        return 0
 
     first_match = service_matches[0]
     port = first_match["port"]
